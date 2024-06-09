@@ -12,6 +12,20 @@ struct Pair2<T, U> {
     y: U
 }
 
+struct Introduction<'a> {
+    intro : &'a str
+}
+
+impl<'a> Introduction<'a> {
+    fn print(&self) {
+        println!("{}", self.intro);
+    }
+
+    fn returnIntro(&self) -> &'a str {
+        self.intro
+    }
+}
+
 impl <T : PartialOrd + Copy + Clone> Pair<T> {
     fn bigger(&self) -> T {
         if self.x > self.y {
@@ -27,20 +41,27 @@ impl <T: Display + Clone, U: Display + Clone> Pair2<T, U> {
         println!("x: {}, y: {}", self.x, self.y);
     }
 }
-/* or 
-fn some_function<T, U>(t: T, u: U) -> i32
-    where T : Display + Clone, 
-          U : Debug + Clone
-{
-    ...
-}*/
+
+fn len_longer_array<'a>(a : &'a [i32], b : &'a [i32]) -> &'a [i32] {
+    if a.len() > b.len() {
+        a
+    } else {
+        b
+    }
+}
+
+fn get_sample_text() -> &'static str {
+    "Just a sample text"
+}
 
 fn main() {
-    let p1 = Pair{x : 5, y : 3};
-    println!("Bigger: {}", p1.bigger());
-    let p2 = Pair{x : 5f64, y : 3f64};
-    println!("Bigger: {}", p2.bigger());
+    let array = [1, 2, 3,];
+    let array2 = [1, 2, 3, 4, 5];
+    let num = len_longer_array(&array, &array2);
+    println!("The longer array is: {:?}",  num);
+    let text = String::from("Introduction to a long text. The rest of long text with many sentences.");
  
-    let pf = Pair2{x: 15i32, y : 12.0f64};
-    pf.print();
+    let intro = text.split('.').next().expect("Could not find a first sentence.");
+ 
+    let i = Introduction { intro };
 }
