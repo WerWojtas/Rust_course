@@ -4,3 +4,4 @@
 - Lab3: structures
 - Lab4: option struct and enum
 - Lab5: generic types and lifetime
+- Lab6: errors
